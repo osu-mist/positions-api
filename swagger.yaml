@@ -14,26 +14,14 @@ schemes:
 produces:
   - application/json
 paths:
-  /:
-    get:
-      summary: Get information
-      description: Build and runtime information about the application.
-      parameters:
-        - $ref: '#/parameters/pretty'
-      responses:
-        200:
-          description: Object containing information
-          schema:
-            $ref: '#/definitions/Info'
-
   /positions:
     get:
       summary: List positions
-      description: List position title and number tied to a business center and department.
+      description: List position (job) titles and numbers in a single business center and department.
       parameters:
         - in: query
-          name: business_center
-          description: "4-character business name"
+          name: businessCenter
+          description: "4-character business center name"
           required: true
           type: string
         - in: query
@@ -46,6 +34,10 @@ paths:
           description: List of positions
           schema:
             $ref: "#/definitions/ResultObject"
+        500:
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error'
 
 parameters:
   pretty:
@@ -56,23 +48,6 @@ parameters:
     description: If true, JSON response will be pretty-printed
 
 definitions:
-  Info:
-    properties:
-      name:
-        type: string
-        description: Name of the API.
-      time:
-        type: string
-        description: Build time in ISO 8601 format.
-      unixTime:
-        type: integer
-        description: Build time as milliseconds since the unix epoch.
-      commit:
-        type: string
-        description: Git commit hash of the revision which was built.
-      documentation:
-        type: string
-        description: Filename of the swagger specification for the API.
   Error:
     properties:
       status:
@@ -135,7 +110,7 @@ definitions:
       title:
         type: string
         description: Position title.
-      bcName:
+      businessCenter:
         type: string
         description: Name of the business center
       positionNumber:
@@ -143,4 +118,4 @@ definitions:
         description: Position number
       organizationCode:
         type: string
-        description: numeric orgCode for the department
+        description: Numeric orgCode for the department
