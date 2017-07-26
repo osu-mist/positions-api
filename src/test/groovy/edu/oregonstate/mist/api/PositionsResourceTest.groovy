@@ -18,8 +18,15 @@ class PositionsResourceTest {
     PositionsResource positionsResource
 
     @Test
+    void shouldRequireTypeAndOnlySupportStudents() {
+        Response response = positionsResource.getPositions("", null)
+        assertNotNull(response)
+        assertEquals(response.status, 400)
+        assertEquals(response.getEntity().class, Error.class)
+    }
+    @Test
     void shouldListAllPositions() {
-        Response response = positionsResource.getPositions("bcName")
+        Response response = positionsResource.getPositions("bcName", "student")
         assertNotNull(response)
         assertEquals(response.getEntity().class, ResultObject.class)
         assertEquals(response.status, 200)
@@ -36,7 +43,7 @@ class PositionsResourceTest {
 
     @Test
     void shouldReturn200ForEmptyList() {
-        Response response = positionsResource.getPositions("empty")
+        Response response = positionsResource.getPositions("empty", "student")
         assertNotNull(response)
         assertEquals(response.getEntity().class, ResultObject.class)
         assertEquals(response.status, 200)
@@ -49,7 +56,7 @@ class PositionsResourceTest {
 
     @Test
     void shouldRequireBusinessCenter() {
-        Response response = positionsResource.getPositions("")
+        Response response = positionsResource.getPositions("", "student")
         assertNotNull(response)
         assertEquals(response.status, 400)
         assertEquals(response.getEntity().class, Error.class)

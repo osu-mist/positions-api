@@ -1,5 +1,6 @@
 package edu.oregonstate.mist.api
 
+import edu.oregonstate.mist.positions.core.Position
 import edu.oregonstate.mist.positions.db.PositionMockDAO
 import org.junit.Test
 
@@ -42,6 +43,14 @@ class PositionMockDAOTest {
         (1..10).each {
             positionMockDAO = new PositionMockDAO(it)
             assertTrue(positionMockDAO.getPositions("empty").isEmpty())
+        }
+    }
+
+    @Test
+    void shouldGenerateOrganizationCodesInLimitedRange() {
+        PositionMockDAO.generate(100, null).each {
+            def difference = Math.abs(Integer.valueOf(it.organizationCode) - 1111)
+            assertTrue(difference <= 20)
         }
     }
 }

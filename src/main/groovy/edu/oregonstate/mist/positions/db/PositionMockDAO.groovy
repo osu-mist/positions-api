@@ -30,11 +30,15 @@ class PositionMockDAO implements PositionDAO {
                         title: chooseTitle(),
                         businessCenter: businessCenter,
                         positionNumber: "C5" + random.nextInt(9999),
-                        organizationCode: random.nextInt(999999)
+                        organizationCode: getOrganizationCode()
                 )
             }
         }
         result
+    }
+
+    private static int getOrganizationCode() {
+        new Random().nextInt(20) + 1111
     }
 
     private static String chooseTitle() {

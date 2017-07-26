@@ -30,9 +30,15 @@ class PositionsResource extends Resource {
 
     @Timed
     @GET
-    Response getPositions(@QueryParam('businessCenter') String businessCenter) {
+    Response getPositions(@QueryParam('businessCenter') String businessCenter,
+                          @QueryParam('type') String type) {
         if (!businessCenter?.trim()) {
             return badRequest("businessCenter is required").build()
+        }
+
+        if (!type?.trim() || !type.equalsIgnoreCase("student")) {
+            return badRequest("type is required. Student is currently the only supported type.")
+                    .build()
         }
 
         ok(new ResultObject(
