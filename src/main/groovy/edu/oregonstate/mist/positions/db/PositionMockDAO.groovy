@@ -22,23 +22,25 @@ class PositionMockDAO implements PositionDAO {
 
     static List<Position> generate(int size, String businessCenter) {
         List<Position> result = new ArrayList<>()
-        def random = new Random()
-
         if (size) {
             size.times {
-                result += new Position(
-                        title: chooseTitle(),
-                        businessCenter: businessCenter,
-                        positionNumber: "C5" + random.nextInt(9999),
-                        organizationCode: getOrganizationCode()
-                )
+
+                // add two positions so to the same dept
+                result += singlePosition(it, businessCenter)
+                result += singlePosition(it, businessCenter)
             }
         }
         result
     }
 
-    private static int getOrganizationCode() {
-        new Random().nextInt(20) + 1111
+    private static Position singlePosition(int it, String businessCenter) {
+        def random = new Random()
+        new Position(
+                title: chooseTitle(),
+                businessCenter: businessCenter,
+                positionNumber: "C5" + random.nextInt(9999).toString(),
+                organizationCode: 1111 + it
+        )
     }
 
     private static String chooseTitle() {

@@ -34,7 +34,7 @@ class PositionsResourceTest {
         ResultObject resultObject = response.getEntity()
         assertNotNull(resultObject.data)
         assertEquals(resultObject.data.class, ArrayList.class)
-        assertEquals(resultObject.data.size(), DATA_SIZE)
+        assertEquals(resultObject.data.size(), DATA_SIZE * 2)
 
         resultObject.data.each {
             assertEquals(it.class, ResourceObject.class)
