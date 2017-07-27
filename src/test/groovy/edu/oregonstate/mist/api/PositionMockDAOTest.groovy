@@ -9,20 +9,20 @@ import static org.junit.Assert.*
 class PositionMockDAOTest {
     @Test
     void shouldReturnEmptyPositionList() {
-        assert !PositionMockDAO.generate(0, null)
+        assert !new PositionMockDAO(10).generate(0, null)
     }
 
     @Test
     void shouldGenerateManyPositions() {
         (1..10).each {
-            assertEquals(PositionMockDAO.generate(it, null).size(), it * 2)
+            assertEquals(new PositionMockDAO(10).generate(it, null).size(), it * 2)
         }
     }
 
     @Test
     void shouldNotGenerateNegativePositions() {
         (-10..-1).each {
-            assertEquals(PositionMockDAO.generate(it, null).size(), 0)
+            assertEquals(new PositionMockDAO(10).generate(it, null).size(), 0)
         }
     }
 
@@ -48,7 +48,7 @@ class PositionMockDAOTest {
 
     @Test
     void shouldGenerateOrganizationCodesInLimitedRange() {
-        PositionMockDAO.generate(100, null).each {
+        new PositionMockDAO(10).generate(100, null).each {
             def difference = Math.abs(Integer.valueOf(it.organizationCode) - 1111)
             assertTrue(difference <= 100)
         }
@@ -56,7 +56,13 @@ class PositionMockDAOTest {
 
     @Test
     void positionNumberShouldBeUnique() {
-        def positions = PositionMockDAO.generate(100, "abc")
+        ["abc", "bcd", "xyz", "ccc"].each {
+            checkPositionNumbersUniqueInBC(it)
+        }
+    }
+
+    void checkPositionNumbersUniqueInBC(String businessCenter) {
+        def positions = new PositionMockDAO(10).generate(10000, businessCenter)
 
         def positionNumbers =  positions.positionNumber
         def uniquePositionNumbers = positionNumbers.unique()
