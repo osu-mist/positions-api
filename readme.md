@@ -1,6 +1,6 @@
-# Web API Skeleton
+# Positions API
 
-Skeleton for Dropwizard Web APIs.
+List position title and position number tied to a department and business center
 
 ### Generate Keys
 
