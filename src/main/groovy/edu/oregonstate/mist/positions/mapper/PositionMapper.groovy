@@ -12,10 +12,9 @@ class PositionMapper implements ResultSetMapper<Position> {
     public Position map(int i, ResultSet rs, StatementContext sc) throws SQLException {
         new Position(
                 title: rs.getString(AbstractPositionDAO.mapperColumnTitle),
-                businessCenter: rs.getString("businessCenter"), //@todo: changeme
-//                positionNumber: rs.getString(AbstractPositionDAO.mapperColumnPositionNumber),
+                businessCenter: rs.getString("businessCenter"),
                 positionNumber: rs.getString(AbstractPositionDAO.mapperColumnPositionNumber),
-                organizationCode: "changeme" //@todo
+                organizationCode: rs.getString(AbstractPositionDAO.mapperColumnPositionReports)
         )
     }
 
