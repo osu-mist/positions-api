@@ -5,8 +5,6 @@ import edu.oregonstate.mist.api.Resource
 import edu.oregonstate.mist.api.jsonapi.ResultObject
 import edu.oregonstate.mist.positions.db.PositionDAO
 import groovy.transform.TypeChecked
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 import javax.annotation.security.PermitAll
 import javax.ws.rs.GET
@@ -21,7 +19,6 @@ import javax.ws.rs.core.Response
 @PermitAll
 @TypeChecked
 class PositionsResource extends Resource {
-    Logger logger = LoggerFactory.getLogger(PositionsResource.class)
     private PositionDAO positionDAO
 
     PositionsResource(PositionDAO positionDAO) {
