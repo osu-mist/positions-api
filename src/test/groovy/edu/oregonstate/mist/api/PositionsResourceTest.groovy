@@ -2,7 +2,7 @@ package edu.oregonstate.mist.api
 
 import edu.oregonstate.mist.api.jsonapi.ResourceObject
 import edu.oregonstate.mist.api.jsonapi.ResultObject
-import edu.oregonstate.mist.positions.db.PositionDAO
+import edu.oregonstate.mist.positions.db.PosDAO
 import edu.oregonstate.mist.positions.db.PositionMockDAO
 import edu.oregonstate.mist.positions.resources.PositionsResource
 import org.junit.Before
@@ -42,16 +42,11 @@ class PositionsResourceTest {
     }
 
     @Test
-    void shouldReturn200ForEmptyList() {
+    void shouldReturn400ForEmptyList() {
         Response response = positionsResource.getPositions("empty", "student")
         assertNotNull(response)
-        assertEquals(response.getEntity().class, ResultObject.class)
-        assertEquals(response.status, 200)
-
-        ResultObject resultObject = response.getEntity()
-        assertNotNull(resultObject.data)
-        assertEquals(resultObject.data.class, ArrayList.class)
-        assertEquals(resultObject.data.size(), 0)
+        assertEquals(response.getEntity().class, Error.class)
+        assertEquals(response.status, 400)
     }
 
     @Test
@@ -64,8 +59,16 @@ class PositionsResourceTest {
 
     @Before
     void setup() {
-        PositionDAO positionDAO = new PositionMockDAO(DATA_SIZE)
-        positionsResource = new PositionsResource(positionDAO)
+        PosDAO posDAO = new PositionMockDAO(DATA_SIZE)
+        positionsResource = new PositionsResource(posDAO)
+    }
+
+    @Test
+    void shouldValidateBusinessCenter() {
+        Response response = positionsResource.getPositions("invalid-bc", "student")
+        assertNotNull(response)
+        assertEquals(response.status, 400)
+        assertEquals(response.getEntity().class, Error.class)
     }
 
 }

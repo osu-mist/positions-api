@@ -63,4 +63,10 @@ class PositionMockDAOTest {
 
         assertEquals(positionNumbers, uniquePositionNumbers)
     }
+
+    @Test
+    void invalidBcIsInvalid() {
+        def mockDAO = new PositionMockDAO(1)
+        assertFalse mockDAO.isValidBC("invalid-bc")
+    }
 }

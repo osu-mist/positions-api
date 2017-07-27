@@ -2,7 +2,7 @@ package edu.oregonstate.mist.positions.db
 
 import edu.oregonstate.mist.positions.core.Position
 
-class PositionMockDAO implements PositionDAO {
+class PositionMockDAO extends PosDAO implements PositionDAO {
     private static List<String> titles = ["Office Manager", "Retail Food Service",
                                           "Mock Dept", "Science Lab"]
     public int positionSize = 0
@@ -47,5 +47,18 @@ class PositionMockDAO implements PositionDAO {
         def random = new Random()
         titles[random.nextInt(titles.size())] + " " +
                 random.nextInt(111)
+    }
+
+    boolean isValidBC(String businessCenter) {
+        def invalidBusinessCenters = ["empty", "invalid-bc"]
+        !invalidBusinessCenters.contains(businessCenter)
+    }
+
+    @Override
+    void close() { }
+
+    @Override
+    Integer checkHealth() {
+        return null
     }
 }

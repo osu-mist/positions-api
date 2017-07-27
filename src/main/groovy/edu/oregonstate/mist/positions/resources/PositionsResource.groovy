@@ -32,7 +32,7 @@ class PositionsResource extends Resource {
     @GET
     Response getPositions(@QueryParam('businessCenter') String businessCenter,
                           @QueryParam('type') String type) {
-        if (!businessCenter?.trim()) {
+        if (!businessCenter?.trim() || !positionDAO.isValidBC(businessCenter)) {
             return badRequest("businessCenter is required").build()
         }
 
