@@ -50,6 +50,8 @@ class PositionMockDAO implements PositionDAO {
         while(candidateNumber == "" || takenPositions.contains(candidateNumber)) {
             candidateNumber = random.nextInt( 999999).toString()
         }
+
+        takenPositions += candidateNumber
         "C5" + candidateNumber
     }
 

@@ -62,7 +62,7 @@ class PositionMockDAOTest {
     }
 
     void checkPositionNumbersUniqueInBC(String businessCenter) {
-        def positions = new PositionMockDAO(10).generate(10000, businessCenter)
+        def positions = new PositionMockDAO(10).generate(2000, businessCenter)
 
         def positionNumbers =  positions.positionNumber
         def uniquePositionNumbers = positionNumbers.unique()
