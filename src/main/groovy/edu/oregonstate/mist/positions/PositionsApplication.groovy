@@ -1,7 +1,7 @@
 package edu.oregonstate.mist.positions
 
 import edu.oregonstate.mist.api.Application
-import edu.oregonstate.mist.api.Configuration
+import edu.oregonstate.mist.positions.db.PosDAO
 import edu.oregonstate.mist.positions.db.PositionDAO
 import edu.oregonstate.mist.positions.db.PositionMockDAO
 import edu.oregonstate.mist.positions.resources.PositionsResource
@@ -22,14 +22,14 @@ class PositionsApplication extends Application<PositionsConfiguration> {
     @Override
     public void run(PositionsConfiguration configuration, Environment environment) {
         this.setup(configuration, environment)
-        PositionDAO positionDAO = getPositionDAO(configuration, environment)
+        PositionDAO positionDAO = getPosDAO(configuration, environment)
 
         environment.jersey().register(new PositionsResource(positionDAO))
         // @todo: register healthcheck
     }
 
-    private PositionDAO getPositionDAO(PositionsConfiguration configuration,
-                                       Environment environment) {
+    private PositionDAO getPosDAO(PositionsConfiguration configuration,
+                             Environment environment) {
         PositionDAO positionDAO
         if(configuration.useTestDAO) {
             //@todo: change this to a config value
@@ -37,7 +37,7 @@ class PositionsApplication extends Application<PositionsConfiguration> {
         } else {
             DBIFactory factory = new DBIFactory()
             DBI jdbi = factory.build(environment, configuration.getDatabase(), "jdbi")
-//            (AbstractPositionDAO) jdbi.onDemand(PositionsDAO.class)
+            positionDAO = (PositionDAO) jdbi.onDemand(PositionDAO.class)
         }
 
         positionDAO
