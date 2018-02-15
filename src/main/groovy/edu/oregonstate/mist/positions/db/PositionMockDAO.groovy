@@ -41,7 +41,9 @@ class PositionMockDAO extends PosDAO implements PositionDAO {
                 title: chooseTitle(),
                 businessCenter: businessCenter,
                 positionNumber: getPositionNumber(random),
-                organizationCode: 1111 + it
+                organizationCode: 1111 + it,
+                lowSalaryPoint: 10,
+                highSalaryPoint: 15.5
         )
     }
 
