@@ -29,13 +29,17 @@ class PositionsResource extends Resource {
     @GET
     Response getPositions(@QueryParam('businessCenter') String businessCenter,
                           @QueryParam('type') String type) {
-        if (!businessCenter?.trim() || !positionDAO.isValidBC(businessCenter)) {
-            return badRequest("businessCenter is required").build()
+        if (!businessCenter?.trim()) {
+            return badRequest("businessCenter (query parameter) is required.").build()
+        }
+
+        if (!positionDAO.isValidBC(businessCenter)) {
+            return badRequest("The value of businessCenter (query parameter) is invalid.").build()
         }
 
         if (!type?.trim() || !type.equalsIgnoreCase("student")) {
-            return badRequest("type is required. Student is currently the only supported type.")
-                    .build()
+            return badRequest("type (query parameter) is required. " +
+                    "'student' is currently the only supported type.").build()
         }
 
         ok(new ResultObject(

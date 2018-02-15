@@ -29,11 +29,16 @@ paths:
           description: The type of positions to list. Currently the API only supports "student" positions.
           required: true
           type: string
+        - $ref: '#/parameters/pretty'
       responses:
         200:
           description: List of positions
           schema:
             $ref: "#/definitions/ResultObject"
+        400:
+          description: Bad request
+          schema:
+            $ref: '#/definitions/Error'
         500:
           description: Internal Server Error
           schema:
@@ -119,3 +124,13 @@ definitions:
       organizationCode:
         type: string
         description: Numeric orgCode for the department
+      lowSalaryPoint:
+        type: number
+        format: float
+        description: Low point for position salary
+        example: 10.5
+      highSalaryPoint:
+        type: number
+        format: float
+        description: High point for position salary
+        example: 15.25

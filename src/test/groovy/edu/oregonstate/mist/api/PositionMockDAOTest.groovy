@@ -1,6 +1,5 @@
 package edu.oregonstate.mist.api
 
-import edu.oregonstate.mist.positions.core.Position
 import edu.oregonstate.mist.positions.db.PositionMockDAO
 import org.junit.Test
 

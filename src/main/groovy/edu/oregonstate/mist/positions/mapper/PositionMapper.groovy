@@ -14,7 +14,9 @@ class PositionMapper implements ResultSetMapper<Position> {
                 title: rs.getString(AbstractPositionDAO.mapperColumnTitle),
                 businessCenter: rs.getString("businessCenter"),
                 positionNumber: rs.getString(AbstractPositionDAO.mapperColumnPositionNumber),
-                organizationCode: rs.getString(AbstractPositionDAO.mapperColumnPositionReports)
+                organizationCode: rs.getString(AbstractPositionDAO.mapperColumnPositionReports),
+                lowSalaryPoint: rs.getBigDecimal(AbstractPositionDAO.mapperColumnLowSalary),
+                highSalaryPoint: rs.getBigDecimal(AbstractPositionDAO.mapperColumnHighSalary)
         )
     }
 

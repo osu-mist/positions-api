@@ -8,6 +8,9 @@ class Position {
     String positionNumber
     String organizationCode
 
+    BigDecimal lowSalaryPoint
+    BigDecimal highSalaryPoint
+
     ResourceObject toResourceObject() {
         new ResourceObject(
                 type: "position",
@@ -16,7 +19,9 @@ class Position {
                         title: title,
                         businessCenter: businessCenter,
                         positionNumber: positionNumber,
-                        organizationCode: organizationCode
+                        organizationCode: organizationCode,
+                        lowSalaryPoint: lowSalaryPoint,
+                        highSalaryPoint: highSalaryPoint
                 ]
         )
     }

@@ -55,6 +55,8 @@ class PositionsResourceTest {
         assertNotNull(response)
         assertEquals(response.status, 400)
         assertEquals(response.getEntity().class, Error.class)
+        assertEquals(response.getEntity()["developerMessage"],
+                "businessCenter (query parameter) is required.")
     }
 
     @Before
@@ -69,6 +71,18 @@ class PositionsResourceTest {
         assertNotNull(response)
         assertEquals(response.status, 400)
         assertEquals(response.getEntity().class, Error.class)
+        assertEquals(response.getEntity()["developerMessage"],
+                "The value of businessCenter (query parameter) is invalid.")
     }
 
+    @Test
+    void shouldOnlyAcceptStudent() {
+        Response response = positionsResource.getPositions("bcName", "faculty")
+        assertNotNull(response)
+        assertEquals(response.status, 400)
+        assertEquals(response.getEntity().class, Error.class)
+        assertEquals(response.getEntity()["developerMessage"],
+                "type (query parameter) is required. " +
+                        "'student' is currently the only supported type.")
+    }
 }
