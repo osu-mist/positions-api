@@ -38,7 +38,7 @@ class PositionsResource extends Resource {
         }
 
         if (!type?.trim() || !type.equalsIgnoreCase("student")) {
-            return badRequest("type (query parameter) is required." +
+            return badRequest("type (query parameter) is required. " +
                     "'student' is currently the only supported type.").build()
         }
 
